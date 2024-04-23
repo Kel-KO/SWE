@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FiTrack - Update Info</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav {
+        background-color: #444;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+    }
+    nav a:hover {
+        background-color: #555;
+    }
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        overflow: hidden;
+    }
+    .content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    .update-info-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>FiTrack - Update Info</h1>
+    </header>
+    <nav>
+    <p style="color: #fff;">Message of the day. " {{ message }} "</p>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h2>Update Your Info</h2>
+            <form class="update-info-form" action="/updateinfo/{{ user_id }}" method="POST">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" value="{{ name }}"><br>
+                <label for="age">Age:</label><br>
+                <input type="text" id="age" name="age" value="{{ age }}"><br>
+                <label for="heightft">Height (feet):</label><br>
+                <input type="text" id="heightft" name="heightft" value="{{ heightft }}"><br>
+                <label for="heightin">Height (inches):</label><br>
+                <input type="text" id="heightin" name="heightin" value="{{ heightin }}"><br>
+                <label for="currentweight">Current Weight (lbs):</label><br>
+                <input type="text" id="currentweight" name="currentweight" value="{{ currentweight }}"><br>
+                <label for="goalweight">Goal Weight (lbs):</label><br>
+                <input type="text" id="goalweight" name="goalweight" value="{{ goalweight }}"><br>
+                <button type="submit">Update My Info</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Workout Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>

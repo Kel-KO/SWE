@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FiTrack</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav {
+        background-color: #444;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+    }
+    nav a:hover {
+        background-color: #555;
+    }
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        overflow: hidden;
+    }
+    .content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 300px;
+    }
+    form label, form input {
+        display: block;
+        margin-bottom: 10px;
+    }
+    form input[type="text"],
+    form input[type="password"],
+    form input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    form input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+    }
+    form input[type="submit"]:hover {
+        background-color: #555;
+    }
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>FiTrack</h1>
+    </header>
+    <nav>
+    <p style="color: #fff;">Stay Confident. Stay Healthy. Stay Up</p>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h2>Welcome to FiTrack!</h2>
+            
+        </div>
+    </div>
+    <h2>Login</h2>
+    <form action="/" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required placeholder="Enter Username"><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required placeholder="Enter Password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    <button onclick="window.location.href='/newuser';">Create New Account</button>
+    <footer>
+        <p>&copy; 2024 Workout Website. All rights reserved.</p>
+        
+    </footer>
+</body>
+</html>

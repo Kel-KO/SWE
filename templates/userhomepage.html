@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FiTrack</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav {
+        background-color: #444;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+    }
+    nav a:hover {
+        background-color: #555;
+    }
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        overflow: hidden;
+    }
+    .content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    .workout-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .sign-out {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+</style>
+</head>
+<body>
+    
+    <header>
+        <h1>FiTrack</h1>
+    </header>
+    <nav>
+    <p style="color: #fff;">Message of the day. " {{ message }} "</p>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h2>Welcome {{name}}!</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="workout-box">
+            <h2>Today's Workout</h2>
+            <p>Type: {{ type_workout }}</p>
+            <p>Workout: {{ workout }}</p>
+            <p>Sets: {{ sets }}</p>
+            <p>Calories: {{ cals }} cal</p>
+            <button id="clockInButton">Clock In</button>       
+        <form id="addWorkoutForm" action="/add_workout" method="POST">
+            <h2>Add Workout</h2>
+            <label for="workoutType">Type:</label><br>
+            <input type="text" id="workoutType" name="type"><br>
+            <label for="workoutName">Name:</label><br>
+            <input type="text" id="workoutName" name="name"><br>
+            <label for="workoutSets">Sets:</label><br>
+            <input type="text" id="workoutSets" name="sets"><br>
+            <label for="workoutCalories">Calories:</label><br>
+            <input type="text" id="workoutCalories" name="calories"><br>
+            <button type="submit">Add Workout</button>
+        </form>
+        </div>
+        <div class="workout-box">
+            <h2>My Info</h2>
+            <p>Name: {{ name }}</p>
+            <p>Age: {{ age }}</p>
+            <p>Height: {{ heightft }} ft {{ heightin }} in</p>
+            <p>Current Weight: {{ currweight }} lbs</p>
+            <p>Goal Weight: {{ goalweight }} lbs</p>
+            <form action="/updateinfo/{{ user_id }}" method="GET">
+                <button type="submit">Update My Info</button>
+            </form>            
+        </div>
+        <div class="workout-box">
+            <h2>History</h2>
+            <table style="width:50%">
+                <thead>
+                    <tr>
+                        <th scope="col">workout</th>
+                        <th scope="col">Date/Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in history %}
+                    <tr>
+                        <td style="color: black;" scope="col">{{ row[1] }}</td>
+                        <td style="color: black;" scope="col">{{ row[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="sign-out" onclick="window.location.href='http://127.0.0.1:5000/';">Sign Out</button>
+    <script>
+document.getElementById('clockInButton').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    let workoutInfo = document.getElementById('workoutInfo').textContent;
+
+    fetch('/clock_in/{{ user_id }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ workout: workoutInfo })
+    }).then(response => {
+        if (response.ok) {
+            // Update the workout info to green
+            document.getElementById('workoutInfo').style.color = 'green';
+            return response.text();
+        } else {
+            throw new Error('Failed to clock in workout');
+        }
+    }).then(data => {
+        console.log(data); // Log the response from the server
+    }).catch(error => {
+        console.error('Error clocking in workout:', error);
+    });
+});
+
+
+document.getElementById('addWorkoutForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Create a new FormData object from the form
+    let formData = new FormData(this);
+
+    // Send a POST request to the server
+    fetch('/add_workout', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            // If the request was successful, reload the page to see the updated workout list
+            location.reload();
+        } else {
+            // Handle the error
+            console.error('Error adding workout:', response.statusText);
+        }
+    }).catch(error => {
+        console.error('Error adding workout:', error);
+    });
+});
+    </script>
+    
+    <footer>
+        <p>&copy; 2024 Workout Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>
